@@ -19,11 +19,10 @@ def main():
         nums.append(tempArray[1].split(' '))
         nums = ridSpaces(nums)
     for count in range(len(input)):
-        #print(count)
         if compare(winNums[count], nums[count]) == 0:
             continue
         else:
-            #print(compare(winNums[count], nums[count]) or 0)
+            print(type(pointValue(compare(winNums[count], nums[count]) or 0)))
             sum += pointValue(compare(winNums[count], nums[count]) or 0)
     print(sum)
     
@@ -42,9 +41,6 @@ def pointValue(times):
     for _ in range(times - 1):
         value += value
     return value
-
-def compare(winVal, myVal):
-    total = 0
 
 def ridSpaces(array):
     holdArray = []

@@ -11,6 +11,7 @@ def main():
                 if char == symbol:
                     symbolMap[index].append(charIndex)
     for lineNum in range(len(input)):
+        print(lineNum)
         if lineNum == 0:
             #sum += int(checkAdjacent(symbolMap[lineNum], input[lineNum]) or 0)
             #print(symbolMap[lineNum], input[lineNum], 'head')
