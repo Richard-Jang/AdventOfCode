@@ -1,5 +1,3 @@
-import sys
-sys.setrecursionlimit(10000)
 def main():
     inputFile = open('input.txt', 'r')
     input = inputFile.readlines()
@@ -29,7 +27,6 @@ def main():
     for count in range(len(input)):
         sum += add(count, total)
     print(sum)
-    
     
 def compare(array1, array2):
     total = 0
