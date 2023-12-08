@@ -1,8 +1,11 @@
+import sys
+sys.setrecursionlimit(10000)
 def main():
     inputFile = open('input.txt', 'r')
     input = inputFile.readlines()
     winNums = []
     nums = []
+    total = []
     sum = 0
     for (index, string) in enumerate(input):
         replaceString = ''
@@ -20,10 +23,11 @@ def main():
         nums = ridSpaces(nums)
     for count in range(len(input)):
         if compare(winNums[count], nums[count]) == 0:
-            print('pass', count)
-            continue
+            total.append(0)
         else:
-            sum += pointValue(compare(winNums[count], nums[count]) or 0)
+            total.append(compare(winNums[count], nums[count]))
+    for count in range(len(input)):
+        sum += add(count, total)
     print(sum)
     
     
@@ -35,12 +39,12 @@ def compare(array1, array2):
                 total += 1
     return int(total)
 
-def pointValue(times):
-    times = int(str(times))
-    value = 1
-    for _ in range(times - 1):
-        value += value
-    return value
+def add(cardNum, array):
+    sum = 1
+    if cardNum < len(array):
+        for index in range(cardNum + 1, cardNum + array[cardNum] + 1):
+            sum += add(index, array)
+    return sum
 
 def ridSpaces(array):
     holdArray = []
