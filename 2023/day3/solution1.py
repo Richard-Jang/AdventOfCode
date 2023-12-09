@@ -11,39 +11,32 @@ def main():
                 if char == symbol:
                     symbolMap[index].append(charIndex)
     for lineNum in range(len(input)):
-        print(lineNum)
         if lineNum == 0:
-            #sum += int(checkAdjacent(symbolMap[lineNum], input[lineNum]) or 0)
-            #print(symbolMap[lineNum], input[lineNum], 'head')
-            #print(symbolMap[lineNum + 1], input[lineNum + 1], 'head')
-            #sum += int(checkAdjacent(symbolMap[lineNum + 1], input[lineNum + 1]) or 0)
-            sum += int(checkAdjacent(symbolMap[lineNum], input[lineNum]) or 0)
-            sum += int(checkAdjacent(symbolMap[lineNum], input[lineNum + 1]) or 0)
+            sum += int(checkAdjacent2D(symbolMap[lineNum], input[lineNum]) or 0)
+            sum += int(checkAdjacent2D(symbolMap[lineNum], input[lineNum + 1]) or 0)
         elif lineNum == (len(input) - 1):
-            sum += int(checkAdjacent(symbolMap[lineNum], input[lineNum - 1]) or 0)
-            sum += int(checkAdjacent(symbolMap[lineNum], input[lineNum]) or 0)
-            #print(symbolMap[lineNum], input[lineNum], 'end')
-            #sum += int(checkAdjacent(symbolMap[lineNum], input[lineNum]) or 0)
-            #sum += int(checkAdjacent(symbolMap[lineNum - 1], input[lineNum - 1]) or 0)
+            sum += int(checkAdjacent2D(symbolMap[lineNum], input[lineNum - 1]) or 0)
+            sum += int(checkAdjacent2D(symbolMap[lineNum], input[lineNum]) or 0)
         else:
-            sum += int(checkAdjacent(symbolMap[lineNum], input[lineNum - 1]) or 0)
-            sum += int(checkAdjacent(symbolMap[lineNum], input[lineNum]) or 0)
-            sum += int(checkAdjacent(symbolMap[lineNum], input[lineNum + 1]) or 0)
-            #print(symbolMap[lineNum], input[lineNum], 'middle')
-            #sum += int(checkAdjacent(symbolMap[lineNum + 1], input[lineNum + 1]) or 0)
-            #sum += int(checkAdjacent(symbolMap[lineNum], input[lineNum]) or 0)
-            #sum += int(checkAdjacent(symbolMap[lineNum - 1], input[lineNum - 1]) or 0)
-
+            sum += int(checkAdjacent2D(symbolMap[lineNum], input[lineNum - 1]) or 0)
+            sum += int(checkAdjacent2D(symbolMap[lineNum], input[lineNum]) or 0)
+            sum += int(checkAdjacent2D(symbolMap[lineNum], input[lineNum + 1]) or 0)
     print(sum)
 
-def checkAdjacent(symbolArray, string):                                                                  # left and right; check for numbers in adjacent tiles on one line, symbolArray (mapping index of location), string (line to search)
+def checkAdjacent2D(symbolArray, string):                                                                  # left and right; check for numbers in adjacent tiles on one line, symbolArray (mapping index of location), string (line to search)
+    sum = 0
     for num in symbolArray:
-        if (num > 0) and (string[num - 1].isnumeric()):                                                  # if -1 has number
-            return checkFront(num, string)
-        elif string[num].isnumeric():                                                                      # if +0 has number
-            return checkFront(num, string) + string[num] + checkBack(num, string)
-        elif (num < (len(string) - 1)) and string[num + 1].isnumeric():                                    # if +1 has number
-            return checkBack(num, string)
+        if string[num].isnumeric():                                                                      # if +0 has number
+            print(checkFront(num, string) + string[num] + checkBack(num, string), 'middle')
+            sum += int(checkFront(num, string) + string[num] + checkBack(num, string))
+        else:
+            if (num > 0) and (string[num - 1].isnumeric()):                                                  # if -1 has number
+                print(checkFront(num, string), 'front')
+                sum += int(checkFront(num, string))
+            if (num < (len(string) - 1)) and string[num + 1].isnumeric():                                    # if +1 has number
+                print(checkBack(num, string), 'back')
+                sum += int(checkBack(num, string))
+    return sum
 
 def checkFront(index, string):
     currentNum = index - 1
