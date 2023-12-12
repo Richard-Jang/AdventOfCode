@@ -10,13 +10,10 @@ def main():
             for symbol in symbols:
                 if char == symbol:
                     symbolMap[index].append(charIndex)
-    print(symbolMap)
     for lineNum in range(len(input)):
         if len(symbolMap[lineNum]) == 0:
-            print('contd')
             continue
         for symbolIndex in symbolMap[lineNum]:
-            print(lineNum)
             if lineNum == 0:
                 sum += checkAdjacent(symbolIndex, '', input[lineNum], input[lineNum + 1])
             elif lineNum == (len(input) - 1):
@@ -26,23 +23,25 @@ def main():
     print(sum)
 
 def checkAdjacent(symbolIndex, upperString, string, lowerString):
-    numbers = strings = []
+    numbers = []
+    strings = []
     if upperString != '':
         strings.append(upperString)
     if string != '':
         strings.append(string)
     if lowerString != '':
         strings.append(lowerString)
-    for str in strings:
-        if checkMiddle(symbolIndex, string) != '':
-            numbers.append(checkMiddle(symbolIndex, str))
-        if checkBack(symbolIndex, string) != '':
-            numbers.append(checkBack(symbolIndex, str))
-        if checkFront(symbolIndex, string) != '':
-            numbers.append(checkFront(symbolIndex, str))
+    for strn in strings:
+        if strn != '':
+            if checkMiddle(symbolIndex, strn) != '':
+                numbers.append(checkMiddle(symbolIndex, strn))
+                continue
+            if checkBack(symbolIndex, strn) != '':
+                numbers.append(checkBack(symbolIndex, strn))
+            if checkFront(symbolIndex, strn) != '':
+                numbers.append(checkFront(symbolIndex, strn))
     if len(numbers) == 2:
-        print(numbers)
-        return numbers[0] * numbers[1]
+        return int(numbers[0]) * int(numbers[1])
     else:
         return 0
 
@@ -50,7 +49,6 @@ def checkMiddle(index, string):
     finalString = ''
     if string[index].isnumeric():
         finalString = checkFront(index, string) + string[index] + checkBack(index, string)
-        #print('middle')
     return finalString
 
 def checkFront(index, string):
@@ -59,7 +57,6 @@ def checkFront(index, string):
     while (currentNum >= 0) and string[currentNum].isnumeric():
         finalString = string[currentNum] + finalString
         currentNum -= 1
-    #print('front')
     return finalString
 
 def checkBack(index, string):
@@ -68,7 +65,6 @@ def checkBack(index, string):
     while (currentNum <= len(string) - 1) and string[currentNum].isnumeric():
         finalString += string[currentNum]
         currentNum += 1
-    #print('back')
     return finalString
 
 main()
